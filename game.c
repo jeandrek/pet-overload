@@ -1,19 +1,26 @@
 #include "overload.h"
+#include <time.h>
 
 static Sprite *player;
+
+void RandomPos(Sprite *sp)
+{
+  sp->rect.x = rand() % WINDOW_WIDTH;
+  sp->rect.y = rand() % WINDOW_HEIGHT;
+}
 
 void InitGame(void)
 {
   player = MakeSprite("player");
   {
-    Sprite *d1, *d2;
+    Sprite *d1, *d2, *c1, *c2;
     srand(time(NULL));
     d1 = MakeSprite("dog1");
     d2 = MakeSprite("dog1");
-    d1->rect.x = rand() % WINDOW_WIDTH;
-    d1->rect.y = rand() % WINDOW_HEIGHT;
-    d2->rect.x = rand() % WINDOW_WIDTH;
-    d2->rect.y = rand() % WINDOW_HEIGHT;
+    c1 = MakeSprite("cat1");
+    c2 = MakeSprite("cat1");
+    RandomPos(d1), RandomPos(d2);
+    RandomPos(c1), RandomPos(c2);
   }
 }
 
