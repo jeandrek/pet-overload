@@ -32,4 +32,13 @@ void UpdateGame(void)
 
   if (keystate[SDL_SCANCODE_S])
     player->rect.y = (player->rect.y + SPEED) % WINDOW_HEIGHT;
+
+  switch (rand() % 60) {
+  case 3:
+    RandomPos(MakeSprite("dog1", NULL));
+    break;
+  case 11:
+    RandomPos(MakeSprite("cat1", NULL));
+    break;
+  }
 }

@@ -4,7 +4,6 @@ int main(int argc, char *argv[])
 {
   SDL_Window *window;
   SDL_Renderer *renderer;
-  SDL_Surface *bgsurface;
   SDL_Texture *bgtexture;
   SDL_Event ev;
 
@@ -23,9 +22,7 @@ int main(int argc, char *argv[])
   }
 
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-  bgsurface = SDL_LoadBMP("assets/background.bmp");
-  bgtexture = SDL_CreateTextureFromSurface(renderer, bgsurface);
-  SDL_FreeSurface(bgsurface);
+  bgtexture = GetTexture("background", renderer);
 
   InitGame(renderer);
 
@@ -42,6 +39,7 @@ int main(int argc, char *argv[])
     DrawSprites(renderer);
     SDL_RenderPresent(renderer);
   }
+
  quit:
   SDL_DestroyRenderer(renderer);
   SDL_Quit();

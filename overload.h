@@ -23,6 +23,9 @@ Sprite *MakeSprite(const char *name, SDL_Renderer *renderer);
 void DestroySprite(Sprite *sp);
 void DrawSprites(SDL_Renderer *renderer);
 
+// texture.c
+SDL_Texture *GetTexture(const char *name, SDL_Renderer *renderer);
+
 // Game constants
 #define WINDOW_WIDTH	640
 #define WINDOW_HEIGHT	480
