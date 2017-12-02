@@ -9,19 +9,19 @@
 typedef struct sprite Sprite;
 
 struct sprite {
-  SDL_Surface *surface;
+  SDL_Texture *texture;
   SDL_Rect rect;
   Sprite *next;
 };
 
 // game.c
-void InitGame(void);
+void InitGame(SDL_Renderer *renderer);
 void UpdateGame(void);
 
 // sprite.c
-Sprite *MakeSprite(const char *name);
+Sprite *MakeSprite(const char *name, SDL_Renderer *renderer);
 void DestroySprite(Sprite *sp);
-void DrawSprites(SDL_Surface *surface);
+void DrawSprites(SDL_Renderer *renderer);
 
 // Game constants
 #define WINDOW_WIDTH	640

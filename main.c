@@ -3,7 +3,9 @@
 int main(int argc, char *argv[])
 {
   SDL_Window *window;
-  SDL_Surface *surface, *bgsurface;
+  SDL_Renderer *renderer;
+  SDL_Surface *bgsurface;
+  SDL_Texture *bgtexture;
   SDL_Event ev;
 
   if (SDL_Init(SDL_INIT_VIDEO) == -1) {
@@ -20,10 +22,12 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
   }
 
-  surface = SDL_GetWindowSurface(window);
+  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
   bgsurface = SDL_LoadBMP("assets/background.bmp");
+  bgtexture = SDL_CreateTextureFromSurface(renderer, bgsurface);
+  SDL_FreeSurface(bgsurface);
 
-  InitGame();
+  InitGame(renderer);
 
   for (;;) {
     while (!SDL_PollEvent(&ev)) {
@@ -34,13 +38,12 @@ int main(int argc, char *argv[])
     }
 
     UpdateGame();
-    SDL_BlitSurface(bgsurface, NULL, surface, NULL);
-    DrawSprites(surface);
-    SDL_UpdateWindowSurface(window);
+    SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
+    DrawSprites(renderer);
+    SDL_RenderPresent(renderer);
   }
  quit:
-  SDL_FreeSurface(bgsurface);
-  SDL_DestroyWindow(window);
+  SDL_DestroyRenderer(renderer);
   SDL_Quit();
 
   return EXIT_SUCCESS;

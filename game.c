@@ -9,10 +9,12 @@ void RandomPos(Sprite *sp)
   sp->rect.y = rand() % WINDOW_HEIGHT;
 }
 
-void InitGame(void)
+void InitGame(SDL_Renderer *renderer)
 {
-  player = MakeSprite("player");
+  player = MakeSprite("player", renderer);
   srand(time(NULL));
+  RandomPos(MakeSprite("dog1", renderer));
+  RandomPos(MakeSprite("cat1", renderer));
 }
 
 void UpdateGame(void)
@@ -30,13 +32,4 @@ void UpdateGame(void)
 
   if (keystate[SDL_SCANCODE_S])
     player->rect.y = (player->rect.y + SPEED) % WINDOW_HEIGHT;
-
-  switch ((rand() % 60)) {
-  case 3:
-    RandomPos(MakeSprite("dog1"));
-    break;
-  case 11:
-    RandomPos(MakeSprite("cat1"));
-    break;
-  }
 }
