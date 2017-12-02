@@ -10,9 +10,9 @@ static struct {
 /* Hash function is from here:
    http://stackoverflow.com/a/4384446 */
 
-unsigned hash(const char *s)
+Uint8 hash(const char *s)
 {
-  unsigned hashval;
+  Uint8 hashval;
 
   for (hashval = 0; *s; s++)
     hashval = *s + 31 * hashval;
@@ -21,7 +21,7 @@ unsigned hash(const char *s)
 
 SDL_Texture *GetTexture(const char *name, SDL_Renderer *renderer)
 {
-  unsigned hashval = hash(name);
+  Uint8 hashval = hash(name);
 
   if (cache[hashval].texture == NULL) {
     SDL_Surface *surface;
