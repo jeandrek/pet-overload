@@ -12,31 +12,31 @@ void RandomPos(Sprite *sp)
 void InitGame(void)
 {
   player = MakeSprite("player");
-  {
-    Sprite *d1, *d2, *c1, *c2;
-    srand(time(NULL));
-    d1 = MakeSprite("dog1");
-    d2 = MakeSprite("dog1");
-    c1 = MakeSprite("cat1");
-    c2 = MakeSprite("cat1");
-    RandomPos(d1), RandomPos(d2);
-    RandomPos(c1), RandomPos(c2);
-  }
+  srand(time(NULL));
 }
 
 void UpdateGame(void)
 {
   const Uint8 *keystate = SDL_GetKeyboardState(NULL);
 
-  if (keystate[SDL_SCANCODE_LEFT])
+  if (keystate[SDL_SCANCODE_A])
     player->rect.x = (player->rect.x - SPEED) % WINDOW_WIDTH;
 
-  if (keystate[SDL_SCANCODE_RIGHT])
+  if (keystate[SDL_SCANCODE_D])
     player->rect.x = (player->rect.x + SPEED) % WINDOW_WIDTH;
 
-  if (keystate[SDL_SCANCODE_UP])
+  if (keystate[SDL_SCANCODE_W])
     player->rect.y = (player->rect.y - SPEED) % WINDOW_HEIGHT;
 
-  if (keystate[SDL_SCANCODE_DOWN])
+  if (keystate[SDL_SCANCODE_S])
     player->rect.y = (player->rect.y + SPEED) % WINDOW_HEIGHT;
+
+  switch ((rand() % 60)) {
+  case 3:
+    RandomPos(MakeSprite("dog1"));
+    break;
+  case 11:
+    RandomPos(MakeSprite("cat1"));
+    break;
+  }
 }
