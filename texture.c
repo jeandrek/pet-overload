@@ -12,7 +12,7 @@ static struct {
 
 Uint8 hash(const char *s)
 {
-  Uint16 hashval;
+  Uint32 hashval;
 
   for (hashval = 0; *s; s++)
     hashval = *s + 31 * hashval;

@@ -15,6 +15,7 @@ void InitGame(SDL_Renderer *renderer)
   srand(time(NULL));
   RandomPos(MakeSprite("dog1", renderer));
   RandomPos(MakeSprite("cat1", renderer));
+  RandomPos(MakeSprite("tree", renderer));
 }
 
 void UpdateGame(void)
@@ -39,6 +40,9 @@ void UpdateGame(void)
     break;
   case 11:
     RandomPos(MakeSprite("cat1", NULL));
+    break;
+  case 27:
+    RandomPos(MakeSprite("tree", NULL));
     break;
   }
 }
