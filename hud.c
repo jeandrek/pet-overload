@@ -6,7 +6,7 @@ void DrawHUD(SDL_Renderer *renderer)
 {
   SDL_Rect hudbox = {0, WINDOW_HEIGHT-45, WINDOW_WIDTH, 45};
 
-  SDL_SetRenderDrawColor(renderer, 0xf0, 0xc0, 0xc0, 0xff);
+  SDL_SetRenderDrawColor(renderer, 0xc0, 0xe0, 0xf0, 0xff);
   SDL_RenderFillRect(renderer, &hudbox);
 
   DrawText("Energy 100", 5, hudbox.y+5, renderer);
