@@ -5,12 +5,16 @@ void DrawText(const char *text, Uint16 x, Uint16 y, SDL_Renderer *renderer);
 void DrawHUD(SDL_Renderer *renderer)
 {
   SDL_Rect hudbox = {0, WINDOW_HEIGHT-45, WINDOW_WIDTH, 45};
+  char hud1[12], hud2[16];
 
   SDL_SetRenderDrawColor(renderer, 0xc0, 0xe0, 0xf0, 0xff);
   SDL_RenderFillRect(renderer, &hudbox);
 
-  DrawText("Energy 100", 5, hudbox.y+5, renderer);
-  DrawText("Money $0", WINDOW_WIDTH/2+5, hudbox.y+5, renderer);
+  snprintf(hud1, 12, "Energy %hu", 99);
+  snprintf(hud2, 16, "Money $%hu", 3456);
+
+  DrawText(hud1, 5, hudbox.y+5, renderer);
+  DrawText(hud2, WINDOW_WIDTH/2+5, hudbox.y+5, renderer);
 }
 
 void DrawText(const char *text, Uint16 x, Uint16 y, SDL_Renderer *renderer)
@@ -37,7 +41,7 @@ void DrawText(const char *text, Uint16 x, Uint16 y, SDL_Renderer *renderer)
     case '3': b = (SDL_Rect){234, 74, 42, 56}; break;
     case '4': b = (SDL_Rect){252, 11, 39, 56}; break;
     case '5': b = (SDL_Rect){0, 119, 43, 56}; break;
-    case '6': b = (SDL_Rect){49, 118, 30, 56}; break;
+    case '6': b = (SDL_Rect){49, 118, 40, 56}; break;
     case '7': b = (SDL_Rect){94, 132, 45, 56}; break;
     case '8': b = (SDL_Rect){140, 133, 43, 56}; break;
     case '9': b = (SDL_Rect){194, 134, 43, 56}; break;
