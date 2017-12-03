@@ -22,6 +22,9 @@ void UpdateGame(void);
 typedef Uint16 Maze;
 Maze *MazeGen(void);
 
+// hud.c
+void DrawHUD(SDL_Renderer *renderer);
+
 // sprite.c
 Sprite *MakeSprite(const char *name, SDL_Renderer *renderer);
 void DestroySprite(Sprite *sp);

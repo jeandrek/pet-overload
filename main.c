@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
     UpdateGame();
     SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
     DrawSprites(renderer);
+    DrawHUD(renderer);
     SDL_RenderPresent(renderer);
   }
 
