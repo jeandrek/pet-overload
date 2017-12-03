@@ -6,14 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct sprite Sprite;
-
-struct sprite {
-  SDL_Texture *texture;
-  SDL_Rect rect;
-  Sprite *next;
-};
-
 // game.c
 void InitGame(SDL_Renderer *renderer);
 void UpdateGame(void);
@@ -26,6 +18,12 @@ Maze *MazeGen(void);
 void DrawHUD(SDL_Renderer *renderer);
 
 // sprite.c
+typedef struct sprite Sprite;
+struct sprite {
+  SDL_Texture *texture;
+  SDL_Rect rect;
+  Sprite *next;
+};
 Sprite *MakeSprite(const char *name, SDL_Renderer *renderer);
 void DestroySprite(Sprite *sp);
 void DrawSprites(SDL_Renderer *renderer);
