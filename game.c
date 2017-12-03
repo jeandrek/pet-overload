@@ -19,9 +19,9 @@ void InitGame(SDL_Renderer *renderer)
 
   for (int y = 9; y > -1; y--) {
     for (int x = 0; x < 13; x++) {
-      if (maze[y] & 1) {
+      if (maze[y][x] == '-') {
 	Sprite *tree = MakeSprite("tree", renderer);
-	tree->rect.x = 624-((x+1)*48);
+	tree->rect.x = x*48;
 	tree->rect.y = y*48;
 	tree->rect.x += (rand() % 12) - 6;
 	tree->rect.y += (rand() % 12) - 6;
@@ -39,7 +39,6 @@ void InitGame(SDL_Renderer *renderer)
 	  pet->rect.y = y*48;
 	}
       }
-      maze[y] >>= 1;
     }
   }
 }

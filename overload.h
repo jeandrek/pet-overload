@@ -11,7 +11,7 @@ void InitGame(SDL_Renderer *renderer);
 void UpdateGame(void);
 
 // maze.c
-typedef Uint16 Maze;
+typedef const char *Maze;
 Maze *MazeGen(void);
 
 // hud.c
