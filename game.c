@@ -36,13 +36,13 @@ void UpdateGame(void)
 
   switch (rand() % 60) {
   case 3:
+    RandomPos(MakeSprite("tree", NULL));
+    break;
+  case 7:
     RandomPos(MakeSprite("dog1", NULL));
     break;
   case 11:
     RandomPos(MakeSprite("cat1", NULL));
-    break;
-  case 27:
-    RandomPos(MakeSprite("tree", NULL));
     break;
   }
 }
