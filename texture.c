@@ -35,6 +35,9 @@ SDL_Texture *GetTexture(const char *name, SDL_Renderer *renderer)
     cache[hashval].name = name;
     cache[hashval].texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
+
+    if (cache[hashval].texture == NULL)
+      fprintf(stderr, "Error: %s\n", SDL_GetError());
   }
 
   return cache[hashval].texture;
