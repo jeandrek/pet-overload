@@ -59,16 +59,16 @@ int Colliding(Sprite *a, Sprite *b)
 	  && ar.h + ar.y > br.y);
 }
 
-int CollidingWithAny(Sprite *sp)
+Sprite *CollidingWithAny(Sprite *sp)
 {
   Sprite *allsp;
 
   allsp = allsprites;
   while (allsp != NULL) {
     if (allsp != sp && Colliding(sp, allsp))
-      return 1;
+      return allsp;
     allsp = allsp->next;
   }
 
-  return 0;
+  return NULL;
 }

@@ -10,8 +10,8 @@ void DrawHUD(SDL_Renderer *renderer)
   SDL_SetRenderDrawColor(renderer, 0xc0, 0xe0, 0xf0, 0xff);
   SDL_RenderFillRect(renderer, &hudbox);
 
-  snprintf(hud1, 12, "Energy %hu", 99);
-  snprintf(hud2, 16, "Money $%hu", 3456);
+  snprintf(hud1, 12, "Energy %hu", 100);
+  snprintf(hud2, 16, "Money $%hu", 1337);
 
   DrawText(hud1, 5, hudbox.y+5, renderer);
   DrawText(hud2, WINDOW_WIDTH/2+5, hudbox.y+5, renderer);
