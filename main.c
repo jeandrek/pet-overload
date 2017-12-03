@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
   }
 
-  window = SDL_CreateWindow("Pet Overload", SDL_WINDOWPOS_UNDEFINED,
-			    SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH,
+  window = SDL_CreateWindow("Pet Overload", SDL_WINDOWPOS_CENTERED,
+			    SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
 			    WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 
   if (!window) {
