@@ -44,22 +44,25 @@ void InitGame(SDL_Renderer *renderer)
   }
 }
 
-void Move(Sprite *sp, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
+Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
 {
   SDL_Rect delta = {0,0,0,0};
+  Sprite *b;
 
   if (left)  delta.x = -SPEED;
   if (right) delta.x = +SPEED;
   if (up)    delta.y = -SPEED;
   if (down)  delta.y = +SPEED;
 
-  sp->rect.x += delta.x;
-  sp->rect.y += delta.y;
+  a->rect.x += delta.x;
+  a->rect.y += delta.y;
 
-  if (CollidingWithAny(sp)) {
-    sp->rect.x -= delta.x;
-    sp->rect.y -= delta.y;
+  if ((b = CollidingWithAny(a))) {
+    a->rect.x -= delta.x;
+    a->rect.y -= delta.y;
   }
+
+  return b;
 }
 
 void UpdateGame(void)
