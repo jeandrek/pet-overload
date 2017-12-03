@@ -43,3 +43,27 @@ void DrawSprites(SDL_Renderer *renderer)
     sp = sp->next;
   }
 }
+
+int Colliding(Sprite *a, Sprite *b)
+{
+  SDL_Rect ar = a->rect, br = b->rect;
+
+  return (ar.x < br.x + br.w
+	  && ar.x + ar.w > br.x
+	  && ar.y < br.y + br.h
+	  && ar.h + ar.y > br.y);
+}
+
+int CollidingWithAny(Sprite *sp)
+{
+  Sprite *allsp;
+
+  allsp = allsprites;
+  while (allsp != NULL) {
+    if (allsp != sp && Colliding(sp, allsp))
+      return 1;
+    allsp = allsp->next;
+  }
+
+  return 0;
+}

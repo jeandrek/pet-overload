@@ -18,10 +18,16 @@ struct sprite {
 void InitGame(SDL_Renderer *renderer);
 void UpdateGame(void);
 
+// maze.c
+typedef Uint16 Maze;
+Maze *MazeGen(void);
+
 // sprite.c
 Sprite *MakeSprite(const char *name, SDL_Renderer *renderer);
 void DestroySprite(Sprite *sp);
 void DrawSprites(SDL_Renderer *renderer);
+int Colliding(Sprite *a, Sprite *b);
+int CollidingWithAny(Sprite *sp);
 
 // texture.c
 SDL_Texture *GetTexture(const char *name, SDL_Renderer *renderer);

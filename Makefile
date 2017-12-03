@@ -1,6 +1,6 @@
 CC=	gcc
 PROGRAM=overload
-OBJECTS=main.o game.o sprite.o texture.o
+OBJECTS=main.o game.o maze.o sprite.o texture.o
 LDFLAGS=-lSDL2
 CFLAGS=	-Wall -W -O2 $(DEBUG$(DEBUG))
 DEBUG1=	-Og -g -DDEBUG

@@ -11,34 +11,66 @@ void RandomPos(Sprite *sp)
 
 void InitGame(SDL_Renderer *renderer)
 {
+  Maze *maze = MazeGen();
+
   player = MakeSprite("player", renderer);
+
   srand(time(NULL));
-  RandomPos(MakeSprite("tree", renderer));
-  RandomPos(MakeSprite("dog1", renderer));
-  RandomPos(MakeSprite("cat1", renderer));
-  RandomPos(MakeSprite("sheep1", renderer));
+
+  for (int y = 9; y > -1; y--) {
+    for (int x = 0; x < 13; x++) {
+      if (maze[y] & 1) {
+	Sprite *tree = MakeSprite("tree", renderer);
+	tree->rect.x = 624-((x+1)*48);
+	tree->rect.y = y*48;
+	tree->rect.x += (rand() % 12) - 6;
+	tree->rect.y += (rand() % 12) - 6;
+      } else {
+	// this code isn't supposed to be here
+	if (rand()%5 == 1) {
+	  Sprite *pet;
+	  char *name;
+	  switch(rand()%3){
+	  case 0:name="dog1";break;
+	  case 1:name="cat1";break;
+	  case 2:name="sheep1";}
+	  pet = MakeSprite(name, renderer);
+	  pet->rect.x = 624-((x+1)*48);
+	  pet->rect.y = y*48;
+	}
+      }
+      maze[y] >>= 1;
+    }
+  }
+}
+
+void Move(Sprite *sp, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
+{
+  SDL_Rect delta = {0,0,0,0};
+
+  if (left)  delta.x = -SPEED;
+  if (right) delta.x = +SPEED;
+  if (up)    delta.y = -SPEED;
+  if (down)  delta.y = +SPEED;
+
+  sp->rect.x += delta.x;
+  sp->rect.y += delta.y;
+
+  if (CollidingWithAny(sp)) {
+    sp->rect.x -= delta.x;
+    sp->rect.y -= delta.y;
+  }
 }
 
 void UpdateGame(void)
 {
   const Uint8 *keystate = SDL_GetKeyboardState(NULL);
 
-  if (keystate[SDL_SCANCODE_A])
-    player->rect.x = (player->rect.x - SPEED) % WINDOW_WIDTH;
+  Move(player,
+       keystate[SDL_SCANCODE_A], keystate[SDL_SCANCODE_D],
+       keystate[SDL_SCANCODE_W], keystate[SDL_SCANCODE_S]);
 
-  if (keystate[SDL_SCANCODE_D])
-    player->rect.x = (player->rect.x + SPEED) % WINDOW_WIDTH;
-
-  if (keystate[SDL_SCANCODE_W])
-    player->rect.y = (player->rect.y - SPEED) % WINDOW_HEIGHT;
-
-  if (keystate[SDL_SCANCODE_S])
-    player->rect.y = (player->rect.y + SPEED) % WINDOW_HEIGHT;
-
-  switch (rand() % 60) {
-  case 3:
-    RandomPos(MakeSprite("tree", NULL));
-    break;
+  /*  switch (rand() % 60) {
   case 7:
     RandomPos(MakeSprite("dog1", NULL));
     break;
@@ -47,5 +79,5 @@ void UpdateGame(void)
     break;
   case 21:
     RandomPos(MakeSprite("sheep1", NULL));
-  }
+    }*/
 }
