@@ -19,24 +19,23 @@ void InitGame(SDL_Renderer *renderer)
 
   for (int y = 9; y > -1; y--) {
     for (int x = 0; x < 13; x++) {
-      if (maze[y][x] == '-') {
-	Sprite *tree = MakeSprite("tree", renderer);
-	tree->rect.x = x*48;
-	tree->rect.y = y*48;
-	tree->rect.x += (rand() % 12) - 6;
-	tree->rect.y += (rand() % 12) - 6;
-      } else {
-	// this code isn't supposed to be here
-	if (rand()%5 == 1) {
-	  Sprite *pet;
-	  char *name;
-	  switch(rand()%3){
-	  case 0:name="dog1";break;
-	  case 1:name="cat1";break;
-	  case 2:name="sheep1";}
-	  pet = MakeSprite(name, renderer);
-	  pet->rect.x = 624-((x+1)*48);
+      switch (maze[y][x]) {
+      case '-':
+	{
+	  Sprite *tree = MakeSprite("tree", renderer);
+	  tree->rect.x = x*48;
+	  tree->rect.y = y*48;
+	  tree->rect.x += (rand()%12)-6;
+	  tree->rect.y += (rand()%12)-6;
+	  break;
+	}
+      case 'a':
+	{
+	  const char *types[] = {"dog1", "cat1", "sheep1"};
+	  Sprite *pet = MakeSprite(types[rand()%3], renderer);
+	  pet->rect.x = x*48;
 	  pet->rect.y = y*48;
+	  break;
 	}
       }
     }
