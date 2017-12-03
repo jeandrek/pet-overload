@@ -1,6 +1,16 @@
 #include "overload.h"
 
+/* Kludge to get it to work optimally on MS Windows:
+   Use WinMain if and only if we are on Windows and
+   this is not a debug build. */
+#if defined(_WIN32) && !defined(DEBUG)
+#include <windows.h>
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
+		   LPSTR lpCmdLine, int nCmdShow)
+#else
 int main(int argc, char *argv[])
+#endif
 {
   SDL_Window *window;
   SDL_Renderer *renderer;
