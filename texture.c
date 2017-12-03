@@ -28,7 +28,9 @@ SDL_Texture *GetTexture(const char *name, SDL_Renderer *renderer)
     char path[32];
 
     snprintf(path, 32, "assets/%s.bmp", name);
+#ifdef DEBUG
     fprintf(stderr, "Debug: loading file %s\n", path);
+#endif
     surface = SDL_LoadBMP(path);
     cache[hashval].name = name;
     cache[hashval].texture = SDL_CreateTextureFromSurface(renderer, surface);
