@@ -48,6 +48,11 @@ int Colliding(Sprite *a, Sprite *b)
 {
   SDL_Rect ar = a->rect, br = b->rect;
 
+  ar.x += 20; ar.w -= 20;
+  ar.y += 20; ar.h -= 20;
+  br.x += 20; br.w -= 20;
+  br.y += 20; br.h -= 20;
+
   return (ar.x < br.x + br.w
 	  && ar.x + ar.w > br.x
 	  && ar.y < br.y + br.h
