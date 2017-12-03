@@ -5,13 +5,15 @@ Sprite *allsprites = NULL;
 Sprite *MakeSprite(const char *name, SDL_Renderer *renderer)
 {
   Sprite *sp;
+  int w, h;
 
   sp = malloc(sizeof (Sprite));
   sp->texture = GetTexture(name, renderer);
+  SDL_QueryTexture(sp->texture, NULL, NULL, &w, &h);
   sp->rect.x = 0;
   sp->rect.y = 0;
-  sp->rect.w = 48;
-  sp->rect.h = 48;
+  sp->rect.w = w;
+  sp->rect.h = h;
   sp->next = allsprites;
   allsprites = sp;
 
