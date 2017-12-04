@@ -52,11 +52,11 @@ void BuildMap(Map *map, SDL_Renderer *renderer)
       case '1':
 	sp = MakeSprite("brick1", renderer);
 	sp->rect.x = x*48;
-	sp->rect.y = y*48+12;
+	sp->rect.y = y*48;
 	break;
       case '2':
 	sp = MakeSprite("brick2", renderer);
-	sp->rect.x = x*48+12;
+	sp->rect.x = x*48;
 	sp->rect.y = y*48;
 	break;
       case '3': case '4': case '5':
