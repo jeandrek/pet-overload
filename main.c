@@ -44,10 +44,13 @@ int main(int argc, char *argv[])
       }
     }
 
-    UpdateGame(player);
-    SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
-    DrawSprites(renderer);
-    DrawHUD(player, renderer);
+    if (!gameover) {
+      UpdateGame(player);
+      SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
+      DrawSprites(renderer);
+      DrawHUD(player, renderer);
+    }
+
     SDL_RenderPresent(renderer);
   }
 

@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+extern Uint8 gameover;
+
 typedef struct sprite Sprite;
 struct sprite {
   SDL_Texture *texture;
@@ -19,7 +21,7 @@ struct player {
   SDL_Texture *texture;
   SDL_Rect rect;
   Sprite *next;
-  Uint16 energy, money;
+  short energy, money;
 };
 
 // game.c

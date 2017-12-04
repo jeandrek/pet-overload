@@ -10,6 +10,11 @@ void DrawHUD(Player *player, SDL_Renderer *renderer)
   SDL_SetRenderDrawColor(renderer, 0xc0, 0xe0, 0xf0, 0xff);
   SDL_RenderFillRect(renderer, &hudbox);
 
+  if (gameover) {
+    DrawText("Game over!", WINDOW_WIDTH/3, hudbox.y+5, renderer);
+    return;
+  }
+
   snprintf(hud1, 12, "Energy %hu", player->energy);
   snprintf(hud2, 16, "Money $%hu", player->money);
 
@@ -35,6 +40,10 @@ void DrawText(const char *text, Uint16 x, Uint16 y, SDL_Renderer *renderer)
     case 'y': b = (SDL_Rect){205, 8, 36, 70}; break;
     case 'M': b = (SDL_Rect){1, 56, 41, 56}; break;
     case 'o': b = (SDL_Rect){51, 64, 38, 56}; break;
+    case 'G': b = (SDL_Rect){10, 173, 44, 56}; break;
+    case 'a': b = (SDL_Rect){61, 172, 38, 56}; break;
+    case 'm': b = (SDL_Rect){108, 187, 45, 56}; break;
+    case 'v': b = (SDL_Rect){190,182, 34,57}; break;
     case '0': b = (SDL_Rect){100, 75, 48, 56}; break;
     case '1': b = (SDL_Rect){149, 76, 39, 56}; break;
     case '2': b = (SDL_Rect){187, 78, 47, 56}; break;
@@ -43,10 +52,11 @@ void DrawText(const char *text, Uint16 x, Uint16 y, SDL_Renderer *renderer)
     case '5': b = (SDL_Rect){0, 119, 43, 56}; break;
     case '6': b = (SDL_Rect){49, 118, 40, 56}; break;
     case '7': b = (SDL_Rect){94, 132, 45, 56}; break;
-    case '8': b = (SDL_Rect){140, 133, 43, 56}; break;
+    case '8': b = (SDL_Rect){142, 134, 43, 56}; break;
     case '9': b = (SDL_Rect){194, 134, 43, 56}; break;
     case '$': b = (SDL_Rect){239, 130, 38, 60}; break;
-    case ' ': x += 40; continue;
+    case '!': b = (SDL_Rect){272, 174, 14, 56}; break;
+    case ' ': x += 32; continue;
     }
 
     p.x = x;

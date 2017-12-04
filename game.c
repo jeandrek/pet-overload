@@ -1,5 +1,7 @@
 #include "overload.h"
 
+Uint8 gameover = 0;
+
 void RandomPos(Sprite *sp)
 {
   sp->rect.x = rand() % WINDOW_WIDTH;
@@ -12,8 +14,8 @@ Player *InitGame(SDL_Renderer *renderer)
 
   BuildMaze(MazeGen(), renderer);
 
-  GetTexture("npc", renderer);
-  player->energy = 100;
+  GetTexture("lost", renderer);
+  player->energy = 19;
   player->money = 15;
 
   return player;
@@ -40,6 +42,12 @@ Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
   return b;
 }
 
+void GameOver(Player *player)
+{
+  player->texture = GetTexture("lost", NULL);
+  gameover = 1;
+}
+
 void UpdateGame(Player *player)
 {
   const Uint8 *state = SDL_GetKeyboardState(NULL);
@@ -53,5 +61,8 @@ void UpdateGame(Player *player)
     met->data |= 0b10;
     //met->texture = GetTexture("npc", NULL);
     player->energy -= 10;
+
+    if (player->energy <= 0)
+      GameOver(player);
   }
 }
