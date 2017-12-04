@@ -14,7 +14,7 @@ Player *InitGame(SDL_Renderer *renderer)
 
   GetTexture("npc", renderer);
   player->energy = 100;
-  player->money = 1337;
+  player->money = 15;
 
   return player;
 }
@@ -45,15 +45,13 @@ void UpdateGame(Player *player)
   const Uint8 *state = SDL_GetKeyboardState(NULL);
   Sprite *met;
 
-  player->money--;
-
   met = Move((Sprite *)player,
 	     state[SDL_SCANCODE_A], state[SDL_SCANCODE_D],
 	     state[SDL_SCANCODE_W], state[SDL_SCANCODE_S]);
 
   if (met && met->data == 1) {
     met->data |= 0b10;
-    met->texture = GetTexture("npc", NULL);
+    //met->texture = GetTexture("npc", NULL);
     player->energy -= 10;
   }
 }
