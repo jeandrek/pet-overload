@@ -2,3 +2,5 @@ overload
 overload.exe
 *.o
 *~
+#*#
+.#*

@@ -17,6 +17,15 @@ int main(int argc, char *argv[])
   SDL_Event ev;
   Player *player;
 
+  // Initialise globals
+  startmap = "level1";
+  gameover = 0;
+
+#ifdef DEBUG
+  if (argc >= 3 && !strcmp(argv[1], "-map"))
+    startmap = argv[2];
+#endif
+
   if (SDL_Init(SDL_INIT_VIDEO) == -1) {
     fprintf(stderr, "Error: %s\n", SDL_GetError());
     return EXIT_FAILURE;
@@ -45,10 +54,10 @@ int main(int argc, char *argv[])
     }
 
     if (!gameover) {
-      UpdateGame(player);
+      UpdateGame(renderer, player);
       SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
       DrawSprites(renderer);
-      DrawHUD(player, renderer);
+      DrawHUD(renderer, player);
     }
 
     SDL_RenderPresent(renderer);

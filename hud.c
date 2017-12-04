@@ -1,8 +1,8 @@
 #include "overload.h"
 
-void DrawText(const char *text, Uint16 x, Uint16 y, SDL_Renderer *renderer);
+void DrawText(SDL_Renderer *renderer, const char *text, Uint16 x, Uint16 y);
 
-void DrawHUD(Player *player, SDL_Renderer *renderer)
+void DrawHUD(SDL_Renderer *renderer, Player *player)
 {
   SDL_Rect hudbox = {0, WINDOW_HEIGHT-45, WINDOW_WIDTH, 45};
   char hud1[12], hud2[16];
@@ -11,18 +11,18 @@ void DrawHUD(Player *player, SDL_Renderer *renderer)
   SDL_RenderFillRect(renderer, &hudbox);
 
   if (gameover) {
-    DrawText("Game over!", WINDOW_WIDTH/3, hudbox.y+5, renderer);
+    DrawText(renderer, "Game over!", WINDOW_WIDTH/3, hudbox.y+5);
     return;
   }
 
   snprintf(hud1, 12, "Energy %hu", player->energy);
   snprintf(hud2, 16, "Money $%hu", player->money);
 
-  DrawText(hud1, 5, hudbox.y+5, renderer);
-  DrawText(hud2, WINDOW_WIDTH/2+5, hudbox.y+5, renderer);
+  DrawText(renderer, hud1, 5, hudbox.y+5);
+  DrawText(renderer, hud2, WINDOW_WIDTH/2+5, hudbox.y+5);
 }
 
-void DrawText(const char *text, Uint16 x, Uint16 y, SDL_Renderer *renderer)
+void DrawText(SDL_Renderer *renderer, const char *text, Uint16 x, Uint16 y)
 {
   SDL_Texture *font;
 

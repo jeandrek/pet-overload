@@ -10,8 +10,6 @@ Sprite *MakeSprite(const char *name, SDL_Renderer *renderer)
   sp = malloc(sizeof (Sprite));
   sp->texture = GetTexture(name, renderer);
   SDL_QueryTexture(sp->texture, NULL, NULL, &w, &h);
-  sp->rect.x = 0;
-  sp->rect.y = 0;
   sp->rect.w = w;
   sp->rect.h = h;
   sp->next = allsprites;
@@ -56,19 +54,30 @@ void SendToAll(SpriteCallback cb, const void *data)
   }
 }
 
+void SendUntil(SpriteCallback cb, const void *data)
+{
+  Sprite *sp;
+
+  sp = allsprites;
+  while (sp != NULL) {
+    if (cb(sp, data)) break;
+    sp = sp->next;
+  }
+}
+
 int Colliding(Sprite *a, Sprite *b)
 {
-  SDL_Rect ar = a->rect, br = b->rect;
+  SDL_Rect r1 = a->rect, r2 = b->rect;
 
-  ar.x += 16; ar.w -= 16;
-  ar.y += 16; ar.h -= 16;
-  br.x += 16; br.w -= 16;
-  br.y += 16; br.h -= 16;
+  r1.x += 16; r1.w -= 16;
+  r1.y += 16; r1.h -= 16;
+  r2.x += 16; r2.w -= 16;
+  r2.y += 16; r2.h -= 16;
 
-  return (ar.x < br.x + br.w
-	  && ar.x + ar.w > br.x
-	  && ar.y < br.y + br.h
-	  && ar.h + ar.y > br.y);
+  return (r1.x < r2.x + r2.w
+	  && r1.x + r1.w > r2.x
+	  && r1.y < r2.y + r2.h
+	  && r1.h + r1.y > r2.y);
 }
 
 Sprite *CollidingWithAny(Sprite *sp)
