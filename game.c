@@ -41,22 +41,12 @@ Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
 
 void UpdateGame(Player *player)
 {
-  const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+  const Uint8 *state = SDL_GetKeyboardState(NULL);
+  Sprite *met;
 
   player->money--;
 
-  Move((Sprite *)player,
-       keystate[SDL_SCANCODE_A], keystate[SDL_SCANCODE_D],
-       keystate[SDL_SCANCODE_W], keystate[SDL_SCANCODE_S]);
-
-  /*  switch (rand() % 60) {
-  case 7:
-    RandomPos(MakeSprite("dog1", NULL));
-    break;
-  case 11:
-    RandomPos(MakeSprite("cat1", NULL));
-    break;
-  case 21:
-    RandomPos(MakeSprite("sheep1", NULL));
-    }*/
+  met = Move((Sprite *)player,
+	     state[SDL_SCANCODE_A], state[SDL_SCANCODE_D],
+	     state[SDL_SCANCODE_W], state[SDL_SCANCODE_S]);
 }
