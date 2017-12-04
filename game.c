@@ -35,7 +35,11 @@ Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
   a->rect.x += delta.x;
   a->rect.y += delta.y;
 
-  if ((b = CollidingWithAny(a))) {
+  if ((b = CollidingWithAny(a))
+      || a->rect.x < 0
+      || a->rect.y < 0
+      || a->rect.x > WINDOW_WIDTH
+      || a->rect.y > WINDOW_HEIGHT) {
     a->rect.x -= delta.x;
     a->rect.y -= delta.y;
   }

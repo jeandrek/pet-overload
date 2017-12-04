@@ -1,6 +1,6 @@
 #include "overload.h"
 
-#define HASHSIZE 71
+#define HASHSIZE 101
 
 static struct {
   const char *name;
@@ -22,6 +22,14 @@ Uint8 hash(const char *s)
 SDL_Texture *GetTexture(const char *name, SDL_Renderer *renderer)
 {
   Uint8 hashval = hash(name);
+
+#ifdef DEBUG
+  if (cache[hashval].texture != NULL
+      && strcmp(name, cache[hashval].name) != 0) {
+    fprintf(stderr, "Debug: hash collision occured between %s and %s!\n",
+	    name, cache[hashval].name);
+  }
+#endif
 
   if (cache[hashval].texture == NULL) {
     SDL_Surface *surface;

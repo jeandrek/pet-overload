@@ -14,6 +14,8 @@
 #else
 #define WINDOW_TITLE	"Pet Overload"
 #endif
+#define MAP_WIDTH	14
+#define MAP_HEIGHT	10
 #define SPEED		5
 #define MASK_ANIMAL	((Uint32)1<<31)
 #define MASK_PET	((Uint32)1<<30)
