@@ -61,7 +61,7 @@ Sprite *MakeSprite(const char *name, SDL_Renderer *renderer);
 void DestroySprite(Sprite *sp);
 void DrawSprites(SDL_Renderer *renderer);
 void SendToAll(SpriteCallback cb, const void *data);
-void SendUntil(SpriteCallback cb, const void *data);
+int SendUntil(SpriteCallback cb, const void *data);
 int Colliding(Sprite *a, Sprite *b);
 Sprite *CollidingWithAny(Sprite *sp);
 

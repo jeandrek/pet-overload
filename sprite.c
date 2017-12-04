@@ -54,15 +54,17 @@ void SendToAll(SpriteCallback cb, const void *data)
   }
 }
 
-void SendUntil(SpriteCallback cb, const void *data)
+int SendUntil(SpriteCallback cb, const void *data)
 {
   Sprite *sp;
 
   sp = allsprites;
   while (sp != NULL) {
-    if (cb(sp, data)) break;
+    if (cb(sp, data)) return 1;
     sp = sp->next;
   }
+
+  return 0;
 }
 
 int Colliding(Sprite *a, Sprite *b)

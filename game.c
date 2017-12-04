@@ -99,7 +99,7 @@ void UpdateGame(SDL_Renderer *renderer, Player *player)
     switch (met->data) {
     case MASK_ANIMAL:
       // Adopt animal
-      met->data |= 1<<30;
+      met->data |= MASK_PET;
       player->energy -= 10;
       if (player->energy <= 0)
 	GameOver(player);
