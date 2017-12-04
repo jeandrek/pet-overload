@@ -12,12 +12,14 @@ Maze *MazeGen(void)
   maze[4] =  "--- ----- ---";
   maze[5] =  "--- ----- ---";
   maze[6] =  "--- ----- ---";
-  maze[7] =  "---   a      ";
+  maze[7] =  "---   a     e";
   maze[8] =  "-------------";
   maze[9] =  "-------------";
 
   return maze;
 }
+
+static const char *types[] = {"dog1", "cat1", "sheep1"};
 
 void BuildMaze(Maze *maze, SDL_Renderer *renderer)
 {
@@ -25,25 +27,27 @@ void BuildMaze(Maze *maze, SDL_Renderer *renderer)
 
   for (int y = 9; y > -1; y--) {
     for (int x = 0; x < 13; x++) {
+      Sprite *sp;
+
       switch (maze[y][x]) {
       case '-':
-	{
-	  Sprite *tree = MakeSprite("tree", renderer);
-	  tree->rect.x = x*48;
-	  tree->rect.y = y*48;
-	  tree->rect.x += (rand()%12)-6;
-	  tree->rect.y += (rand()%12)-6;
-	  break;
-	}
+	sp = MakeSprite("tree", renderer);
+	sp->rect.x = x*48;
+	sp->rect.y = y*48;
+	sp->rect.x += (rand()%12)-6;
+	sp->rect.y += (rand()%12)-6;
+	break;
       case 'a':
-	{
-	  const char *types[] = {"dog1", "cat1", "sheep1"};
-	  Sprite *pet = MakeSprite(types[rand()%3], renderer);
-	  pet->rect.x = x*48;
-	  pet->rect.y = y*48;
-	  pet->data = 1;
-	  break;
-	}
+	sp = MakeSprite(types[rand()%3], renderer);
+	sp->rect.x = x*48;
+	sp->rect.y = y*48;
+	sp->data = 1<<31;
+	break;
+      case 'e':
+	sp = MakeSprite("exit", renderer);
+	sp->rect.x = x*48;
+	sp->rect.y = y*48;
+	break;
       }
     }
   }

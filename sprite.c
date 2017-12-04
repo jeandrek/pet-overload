@@ -45,6 +45,17 @@ void DrawSprites(SDL_Renderer *renderer)
   }
 }
 
+void SendToAll(SpriteCallback cb, const void *data)
+{
+  Sprite *sp;
+
+  sp = allsprites;
+  while (sp != NULL) {
+    cb(sp, data);
+    sp = sp->next;
+  }
+}
+
 int Colliding(Sprite *a, Sprite *b)
 {
   SDL_Rect ar = a->rect, br = b->rect;

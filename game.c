@@ -15,7 +15,7 @@ Player *InitGame(SDL_Renderer *renderer)
   BuildMaze(MazeGen(), renderer);
 
   GetTexture("lost", renderer);
-  player->energy = 19;
+  player->energy = 60;
   player->money = 15;
 
   return player;
@@ -48,6 +48,14 @@ void GameOver(Player *player)
   gameover = 1;
 }
 
+void Follow(Sprite *pet, Uint8 *state)
+{
+  if (pet->data & 1<<30) {
+    Move(pet, state[SDL_SCANCODE_A], state[SDL_SCANCODE_D],
+	 state[SDL_SCANCODE_W], state[SDL_SCANCODE_S]);
+  }
+}
+
 void UpdateGame(Player *player)
 {
   const Uint8 *state = SDL_GetKeyboardState(NULL);
@@ -57,9 +65,10 @@ void UpdateGame(Player *player)
 	     state[SDL_SCANCODE_A], state[SDL_SCANCODE_D],
 	     state[SDL_SCANCODE_W], state[SDL_SCANCODE_S]);
 
-  if (met && met->data == 1) {
-    met->data |= 0b10;
-    //met->texture = GetTexture("npc", NULL);
+  SendToAll((SpriteCallback)Follow, state);
+
+  if (met && met->data == 1<<31) {
+    met->data |= 1<<30;
     player->energy -= 10;
 
     if (player->energy <= 0)

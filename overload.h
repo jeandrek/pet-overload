@@ -9,6 +9,9 @@
 extern Uint8 gameover;
 
 typedef struct sprite Sprite;
+typedef struct player Player;
+typedef void (*SpriteCallback)(Sprite *, const void *);
+
 struct sprite {
   SDL_Texture *texture;
   SDL_Rect rect;
@@ -16,7 +19,6 @@ struct sprite {
   Uint32 data;
 };
 
-typedef struct player Player;
 struct player {
   SDL_Texture *texture;
   SDL_Rect rect;
@@ -40,6 +42,7 @@ void DrawHUD(Player *player, SDL_Renderer *renderer);
 Sprite *MakeSprite(const char *name, SDL_Renderer *renderer);
 void DestroySprite(Sprite *sp);
 void DrawSprites(SDL_Renderer *renderer);
+void SendToAll(SpriteCallback cb, const void *data);
 int Colliding(Sprite *a, Sprite *b);
 Sprite *CollidingWithAny(Sprite *sp);
 
