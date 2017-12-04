@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
   SDL_Renderer *renderer;
   SDL_Texture *bgtexture;
   SDL_Event ev;
+  Player *player;
 
   if (SDL_Init(SDL_INIT_VIDEO) == -1) {
     fprintf(stderr, "Error: %s\n", SDL_GetError());
@@ -33,7 +34,7 @@ int main(int argc, char *argv[])
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
   bgtexture = GetTexture("background", renderer);
 
-  InitGame(renderer);
+  player = InitGame(renderer);
 
   for (;;) {
     while (!SDL_PollEvent(&ev)) {
@@ -43,10 +44,10 @@ int main(int argc, char *argv[])
       }
     }
 
-    UpdateGame();
+    UpdateGame(player);
     SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
     DrawSprites(renderer);
-    DrawHUD(renderer);
+    DrawHUD(player, renderer);
     SDL_RenderPresent(renderer);
   }
 

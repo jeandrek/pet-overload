@@ -2,7 +2,7 @@
 
 void DrawText(const char *text, Uint16 x, Uint16 y, SDL_Renderer *renderer);
 
-void DrawHUD(SDL_Renderer *renderer)
+void DrawHUD(Player *player, SDL_Renderer *renderer)
 {
   SDL_Rect hudbox = {0, WINDOW_HEIGHT-45, WINDOW_WIDTH, 45};
   char hud1[12], hud2[16];
@@ -10,8 +10,8 @@ void DrawHUD(SDL_Renderer *renderer)
   SDL_SetRenderDrawColor(renderer, 0xc0, 0xe0, 0xf0, 0xff);
   SDL_RenderFillRect(renderer, &hudbox);
 
-  snprintf(hud1, 12, "Energy %hu", 100);
-  snprintf(hud2, 16, "Money $%hu", 1337);
+  snprintf(hud1, 12, "Energy %hu", player->energy);
+  snprintf(hud2, 16, "Money $%hu", player->money);
 
   DrawText(hud1, 5, hudbox.y+5, renderer);
   DrawText(hud2, WINDOW_WIDTH/2+5, hudbox.y+5, renderer);

@@ -6,24 +6,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// game.c
-void InitGame(SDL_Renderer *renderer);
-void UpdateGame(void);
-
-// maze.c
-typedef const char *Maze;
-Maze *MazeGen(void);
-
-// hud.c
-void DrawHUD(SDL_Renderer *renderer);
-
-// sprite.c
 typedef struct sprite Sprite;
 struct sprite {
   SDL_Texture *texture;
   SDL_Rect rect;
   Sprite *next;
+  Uint32 data;
 };
+
+typedef struct player Player;
+struct player {
+  SDL_Texture *texture;
+  SDL_Rect rect;
+  Sprite *next;
+  Uint16 energy, money;
+};
+
+// game.c
+Player *InitGame(SDL_Renderer *renderer);
+void UpdateGame(Player *player);
+
+// maze.c
+typedef const char *Maze;
+Maze *MazeGen(void);
+void BuildMaze(Maze *maze, SDL_Renderer *renderer);
+
+// hud.c
+void DrawHUD(Player *player, SDL_Renderer *renderer);
+
+// sprite.c
 Sprite *MakeSprite(const char *name, SDL_Renderer *renderer);
 void DestroySprite(Sprite *sp);
 void DrawSprites(SDL_Renderer *renderer);
