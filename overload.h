@@ -47,6 +47,11 @@ SDL_Texture *GetTexture(const char *name, SDL_Renderer *renderer);
 // Game constants
 #define WINDOW_WIDTH	640
 #define WINDOW_HEIGHT	480
+#ifdef DEBUG
+#define WINDOW_TITLE	"Pet Overload (DEBUG)"
+#else
+#define WINDOW_TITLE	"Pet Overload"
+#endif
 
 #define SPEED	5
 

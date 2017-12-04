@@ -12,6 +12,7 @@ Player *InitGame(SDL_Renderer *renderer)
 
   BuildMaze(MazeGen(), renderer);
 
+  GetTexture("npc", renderer);
   player->energy = 100;
   player->money = 1337;
 
@@ -49,4 +50,10 @@ void UpdateGame(Player *player)
   met = Move((Sprite *)player,
 	     state[SDL_SCANCODE_A], state[SDL_SCANCODE_D],
 	     state[SDL_SCANCODE_W], state[SDL_SCANCODE_S]);
+
+  if (met && met->data == 1) {
+    met->data |= 0b10;
+    met->texture = GetTexture("npc", NULL);
+    player->energy -= 10;
+  }
 }

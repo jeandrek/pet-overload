@@ -41,6 +41,7 @@ void BuildMaze(Maze *maze, SDL_Renderer *renderer)
 	  Sprite *pet = MakeSprite(types[rand()%3], renderer);
 	  pet->rect.x = x*48;
 	  pet->rect.y = y*48;
+	  pet->data = 1;
 	  break;
 	}
       }

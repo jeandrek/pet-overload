@@ -15,6 +15,7 @@ Sprite *MakeSprite(const char *name, SDL_Renderer *renderer)
   sp->rect.w = w;
   sp->rect.h = h;
   sp->next = allsprites;
+  sp->data = 0;
   allsprites = sp;
 
   return sp;
