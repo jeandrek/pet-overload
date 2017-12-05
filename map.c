@@ -49,17 +49,7 @@ void BuildMap(Map *map, SDL_Renderer *renderer)
 	sp->rect.x = x*48 + (rand()%12)-6;
 	sp->rect.y = y*48 + (rand()%12)-6;
 	break;
-      case '1':
-	sp = MakeSprite("brick1", renderer);
-	sp->rect.x = x*48;
-	sp->rect.y = y*48;
-	break;
-      case '2':
-	sp = MakeSprite("brick2", renderer);
-	sp->rect.x = x*48;
-	sp->rect.y = y*48;
-	break;
-      case '3': case '4': case '5':
+      case '1': case '2': case '3': case '4': case '5':
 	{
 	  char name[8] = "brickn";
 	  name[5] = map[y][x];
