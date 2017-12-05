@@ -22,6 +22,8 @@
 #define MASK_SOLD	((Uint32)1<<29)
 #define MASK_NPC	((Uint32)1<<28)
 #define MASK_EXIT	((Uint32)1<<27)
+#define MASK_GATE	((Uint32)1<<26)
+#define MASK_OPEN	((Uint32)1<<25)
 
 // Global variables
 const char *startmap;

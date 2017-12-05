@@ -86,6 +86,12 @@ void BuildMap(Map *map, SDL_Renderer *renderer)
 	sp->rect.y = y*48;
 	sp->data = MASK_EXIT;
 	break;
+      case 'g':
+	sp = MakeSprite("gate1", renderer);
+	sp->rect.x = x*48;
+	sp->rect.y = y*48;
+	sp->data = MASK_GATE;
+	break;
       }
     }
   }

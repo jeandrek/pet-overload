@@ -13,7 +13,9 @@ Player *InitGame(SDL_Renderer *renderer)
   Player *player = (Player *)MakeSprite("player", renderer);
 
   BuildMap((currentmap = LoadMap(startmap)), renderer);
+  // Cache 2 textures in advance for convenience...
   GetTexture("lost", renderer);
+  GetTexture("gate2", renderer);
   player->rect.x = 5;
   player->rect.y = 5;
   player->energy = 60;
@@ -27,15 +29,14 @@ Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
   SDL_Rect delta = {0,0,0,0};
   Sprite *b;
 
-  if (left)   delta.x = -SPEED;
-  if (right) {delta.x = +SPEED; goto end;}
-  if (up)     delta.y = -SPEED;
-  if (down)   delta.y = +SPEED;
- end:
+  if (right)     delta.x = -SPEED;
+  else if (left) delta.x = +SPEED;
+  if (down)      delta.y = +SPEED;
+  else if (up)   delta.y = -SPEED;
   a->rect.x += delta.x;
   a->rect.y += delta.y;
 
-  if ((b = CollidingWithAny(a))
+  if (((b = CollidingWithAny(a)) && !(b->data & MASK_OPEN))
       // Allow pets but not players to go off-screen
       || (!(a->data & MASK_PET)
 	  && (a->rect.x < 0 || a->rect.y < 0
@@ -57,8 +58,19 @@ void GameOver(Player *player)
 void Follow(Sprite *pet, Uint8 *state)
 {
   if (pet->data & MASK_PET) {
-    Move(pet, state[SDL_SCANCODE_A], state[SDL_SCANCODE_D],
-	 state[SDL_SCANCODE_W], state[SDL_SCANCODE_S]);
+    Sprite *met;
+
+    met = Move(pet, state[SDL_SCANCODE_A], state[SDL_SCANCODE_D],
+	       state[SDL_SCANCODE_W], state[SDL_SCANCODE_S]);
+
+    if (met && met->data == MASK_GATE) {
+      // Animals can open gates, but only from the east side
+      SDL_Rect r1 = pet->rect, r2 = met->rect;
+      if (r1.x > r2.x) {
+	met->data |= MASK_OPEN;
+	met->texture = GetTexture("gate2", NULL);
+      }
+    }
   }
 }
 
@@ -79,8 +91,9 @@ void ClearMap(Sprite *sp, Player *player)
   // Leave only the player and pets
   if (!sp->data || sp->data == MASK_ANIMAL
       || sp->data == (MASK_ANIMAL | MASK_SOLD)
-      || sp->data == MASK_NPC
-      || sp->data == MASK_EXIT)
+      || sp->data & MASK_NPC
+      || sp->data & MASK_EXIT
+      || sp->data & MASK_GATE)
     DestroySprite(sp);
   else if (sp->data & MASK_PET) {
     // Keep pets same distance relative to player
