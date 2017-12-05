@@ -29,8 +29,8 @@ Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
   SDL_Rect delta = {0,0,0,0};
   Sprite *b;
 
-  if (right)     delta.x = -SPEED;
-  else if (left) delta.x = +SPEED;
+  if (right)     delta.x = +SPEED;
+  else if (left) delta.x = -SPEED;
   if (down)      delta.y = +SPEED;
   else if (up)   delta.y = -SPEED;
   a->rect.x += delta.x;
