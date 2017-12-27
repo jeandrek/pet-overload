@@ -40,8 +40,8 @@ Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
       // Allow pets but not players to go off-screen
       || (!(a->data & MASK_PET)
 	  && (a->rect.x < 0 || a->rect.y < 0
-	      || a->rect.x > WINDOW_WIDTH
-	      || a->rect.y > WINDOW_HEIGHT))) {
+	      || (a->rect.x+a->rect.w) > WINDOW_WIDTH
+	      || (a->rect.y+a->rect.h) > WINDOW_HEIGHT))) {
     a->rect.x -= delta.x;
     a->rect.y -= delta.y;
   }
