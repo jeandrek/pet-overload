@@ -1,0 +1,17 @@
+CC=	gcc
+PROGRAM=overload.exe
+OBJECTS=main.o game.o map.o hud.o sprite.o texture.o
+LDFLAGS=-lSDL2 $(LF$(DEBUG))
+CFLAGS=	-Wall -W -Wno-unused-result -O2 $(CF$(DEBUG))
+CF1=	-Og -g -DDEBUG
+# Use -mwindows if this is *not* a debug build.
+LF=	-mwindows
+
+$(PROGRAM): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS) $(LDFLAGS)
+
+.c.o:
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+	del /f/q $(PROGRAM) $(OBJECTS)

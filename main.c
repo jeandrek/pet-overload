@@ -1,5 +1,32 @@
 #include "overload.h"
 
+#ifdef MACOS
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
+static void LocateAssets(void)
+{
+#ifndef MACOS
+  strcpy(assetspath, "assets");
+#else
+  CFBundleRef bundle;
+  CFURLRef url;
+  Boolean success;
+  char bundlepath[128];
+
+  bundle = CFBundleGetMainBundle();
+  url = CFBundleCopyBundleURL(bundle);
+  success = CFURLGetFileSystemRepresentation(url, true, (UInt8 *)bundlepath, 128);
+
+  if (!success) {
+    fprintf(stderr, "Error: Can't get bundle path\n");
+    exit(EXIT_FAILURE);
+  }
+
+  snprintf(assetspath, 128, "%s/Contents/Resources", bundlepath);
+#endif
+}
+
 #if defined(_WIN32) && !defined(DEBUG)
 #include <windows.h>
 /* Kludge to get it to work optimally on MS Windows:
@@ -25,6 +52,8 @@ int main(int argc, char *argv[])
   if (argc >= 3 && !strcmp(argv[1], "-map"))
     startmap = argv[2];
 #endif
+
+  LocateAssets();
 
   if (SDL_Init(SDL_INIT_VIDEO) == -1) {
     fprintf(stderr, "Error: %s\n", SDL_GetError());

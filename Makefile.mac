@@ -1,0 +1,17 @@
+CONTENTS=Pet\ Overload.app/Contents
+PROGRAM=$(CONTENTS)/MacOS/Pet\ Overload
+OBJECTS=main.o game.o map.o hud.o sprite.o texture.o
+LDFLAGS=-F$(CONTENTS)/Frameworks -framework SDL2 -framework CoreFoundation\
+	-rpath @executable_path/../Frameworks -mmacosx-version-min=10.6
+CFLAGS=	-Wall -W -Wno-unused-result -O2 $(CF$(DEBUG)) -I$(CONTENTS)/Frameworks/SDL2.framework/Headers\
+	-mmacosx-version-min=10.6 -DMACOS
+CF1=	-Og -g -DDEBUG
+
+$(PROGRAM): $(OBJECTS)
+	$(CC) -o "$@" $(OBJECTS) $(LDFLAGS)
+
+.c.o:
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+	rm -f $(PROGRAM) $(OBJECTS)

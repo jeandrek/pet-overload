@@ -1,10 +1,16 @@
 #ifndef _OVERLOAD_H
 #define _OVERLOAD_H
 
-#define SDL_MAIN_HANDLED
-#include <SDL2/SDL.h>
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#define SDL_MAIN_HANDLED
+#ifdef _WIN32
+#include <SDL2/SDL.h>
+#else
+#include <SDL.h>
+#endif
 
 // Game constants
 #define WINDOW_WIDTH	640
@@ -27,12 +33,14 @@
 
 // Global variables
 const char *startmap;
+char assetspath[128];
 Uint8 gameover;
 
 // Type definitions
 typedef struct sprite Sprite;
 typedef struct player Player;
 typedef int (*SpriteCallback)(Sprite *, const void *);
+typedef char *Map;
 
 struct sprite {
   SDL_Texture *texture;
@@ -53,7 +61,6 @@ Player *InitGame(SDL_Renderer *renderer);
 void UpdateGame(SDL_Renderer *renderer, Player *player);
 
 // map.c
-typedef char *Map;
 Map *LoadMap(const char *name);
 void BuildMap(Map *map, SDL_Renderer *renderer);
 

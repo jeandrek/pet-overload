@@ -33,9 +33,9 @@ SDL_Texture *GetTexture(const char *name, SDL_Renderer *renderer)
 
   if (cache[hashval].texture == NULL) {
     SDL_Surface *surface;
-    char path[32];
+    char path[128];
 
-    snprintf(path, 32, "assets/%s.bmp", name);
+    snprintf(path, 128, "%s/%s.bmp", assetspath, name);
 #ifdef DEBUG
     fprintf(stderr, "Debug: loading file %s\n", path);
 #endif

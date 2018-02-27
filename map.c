@@ -4,10 +4,10 @@
 Map *LoadMap(const char *name)
 {
   Map *map = malloc(sizeof (Map) * 11);
-  char path[32];
+  char path[128];
   FILE *f;
 
-  snprintf(path, 32, "assets/%s.map", name);
+  snprintf(path, 128, "%s/%s.map", assetspath, name);
 #ifdef DEBUG
   fprintf(stderr, "Debug: loading file %s\n", path);
 #endif
