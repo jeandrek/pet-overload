@@ -89,12 +89,11 @@ int main(int argc, char *argv[])
       SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
       DrawSprites(renderer);
       DrawHUD(renderer, player);
+      SDL_RenderPresent(renderer);
       ticks = SDL_GetTicks();
     } else {
       SDL_Delay(5); // Idle
     }
-
-    SDL_RenderPresent(renderer);
   }
 
  quit:
