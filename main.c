@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
   SDL_Renderer *renderer;
   SDL_Texture *bgtexture;
   SDL_Event ev;
+  Uint32 ticks = 0;
   Player *player;
 
   // Initialise globals
@@ -75,18 +76,22 @@ int main(int argc, char *argv[])
   player = InitGame(renderer);
 
   for (;;) {
-    while (!SDL_PollEvent(&ev)) {
+    if (!SDL_PollEvent(&ev)) {
       switch (ev.type) {
       case SDL_QUIT:
 	goto quit;
       }
     }
 
-    if (!gameover) {
+    // Run at as close to 40 FPS as possible
+    if ((SDL_GetTicks()-ticks) >= 25 && !gameover) {
       UpdateGame(renderer, player);
       SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
       DrawSprites(renderer);
       DrawHUD(renderer, player);
+      ticks = SDL_GetTicks();
+    } else {
+      SDL_Delay(5); // Idle
     }
 
     SDL_RenderPresent(renderer);
