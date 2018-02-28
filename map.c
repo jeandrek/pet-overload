@@ -16,21 +16,18 @@ Map *LoadMap(const char *name)
     exit(EXIT_FAILURE);
   }
 
-  map[0] = malloc(16); map[1] = malloc(16);
-  map[2] = malloc(16); map[3] = malloc(16);
-  map[4] = malloc(16); map[5] = malloc(16);
-  map[6] = malloc(16); map[7] = malloc(16);
-  map[8] = malloc(16); map[9] = malloc(16);
-  map[10] = malloc(7);
-
-  fgets(map[0], 16, f); fgets(map[1], 16, f);
-  fgets(map[2], 16, f); fgets(map[3], 16, f);
-  fgets(map[4], 16, f); fgets(map[5], 16, f);
-  fgets(map[6], 16, f); fgets(map[7], 16, f);
-  fgets(map[8], 16, f); fgets(map[9], 16, f);
-  fgets(map[10], 7, f);
+  for (int i = 0; i < 10; i++)
+    map[i] = fgets(malloc(16), 16, f);
+  map[10] = fgets(malloc(7), 7, f);
 
   return map;
+}
+
+void FreeMap(Map *map)
+{
+  for (int i = 0; i < 10; i++)
+    free(map[i]);
+  free(map);
 }
 
 static const char *types[] = {"dog1", "cat1", "sheep1"};

@@ -62,6 +62,7 @@ void UpdateGame(SDL_Renderer *renderer, Player *player);
 
 // map.c
 Map *LoadMap(const char *name);
+void FreeMap(Map *map);
 void BuildMap(Map *map, SDL_Renderer *renderer);
 
 // hud.c

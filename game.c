@@ -134,7 +134,7 @@ void UpdateGame(SDL_Renderer *renderer, Player *player)
       player->rect.y = 5;
       oldmap = currentmap;
       BuildMap((currentmap = LoadMap(currentmap[10])), renderer);
-      free(oldmap);
+      FreeMap(oldmap);
       break;
     }
   }

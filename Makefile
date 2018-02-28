@@ -1,7 +1,7 @@
 PROGRAM=overload
 OBJECTS=main.o game.o map.o hud.o sprite.o texture.o
 LDFLAGS=`sdl2-config --libs`
-CFLAGS=	`sdl2-config --cflags` -Wall -W -Wno-unused-result -O2 $(CF$(DEBUG))
+CFLAGS=	`sdl2-config --cflags` -Wall -W -O2 $(CF$(DEBUG))
 CF1=	-Og -g -DDEBUG
 
 $(PROGRAM): $(OBJECTS)
