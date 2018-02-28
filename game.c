@@ -106,6 +106,7 @@ void UpdateGame(SDL_Renderer *renderer, Player *player)
 {
   const Uint8 *state = SDL_GetKeyboardState(NULL);
   Sprite *met;
+  Map *oldmap;
 
   met = Move((Sprite *)player,
 	     state[SDL_SCANCODE_A], state[SDL_SCANCODE_D],
@@ -131,7 +132,9 @@ void UpdateGame(SDL_Renderer *renderer, Player *player)
       SendToAll((SpriteCallback)ClearMap, player);
       player->rect.x = 5;
       player->rect.y = 5;
+      oldmap = currentmap;
       BuildMap((currentmap = LoadMap(currentmap[10])), renderer);
+      free(oldmap);
       break;
     }
   }
