@@ -13,12 +13,13 @@
 #endif
 
 // Game constants
+#define VERSION		"v1.2"
 #define WINDOW_WIDTH	640
 #define WINDOW_HEIGHT	480
 #ifdef DEBUG
-#define WINDOW_TITLE	"Pet Overload (DEBUG)"
+#define WINDOW_TITLE	"Pet Overload " VERSION " (DEBUG)"
 #else
-#define WINDOW_TITLE	"Pet Overload"
+#define WINDOW_TITLE	"Pet Overload " VERSION
 #endif
 #define MAP_WIDTH	14
 #define MAP_HEIGHT	10
