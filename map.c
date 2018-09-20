@@ -3,7 +3,7 @@
 
 Map *LoadMap(const char *name)
 {
-  Map *map = malloc(sizeof (Map) * 11);
+  Map *map = malloc(11 * sizeof (Map));
   char path[128];
   FILE *f;
 
@@ -36,15 +36,15 @@ void BuildMap(Map *map, SDL_Renderer *renderer)
 {
   srand(time(NULL));
 
-  for (int y = MAP_HEIGHT-1; y > -1; y--) {
+  for (int y = MAP_HEIGHT - 1; y > -1; y--) {
     for (int x = 0; x < MAP_WIDTH; x++) {
       Sprite *sp;
 
       switch (map[y][x]) {
       case '-':
 	sp = MakeSprite("tree", renderer);
-	sp->rect.x = x*48 + (rand()%12)-6;
-	sp->rect.y = y*48 + (rand()%12)-6;
+	sp->rect.x = x*48 + rand()%12 - 6;
+	sp->rect.y = y*48 + rand()%12 - 6;
 	break;
       case '1': case '2': case '3': case '4': case '5':
 	{

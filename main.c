@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
     }
 
     // Run at as close to 40 FPS as possible
-    if ((SDL_GetTicks()-ticks) >= 25 && !gameover) {
+    if (SDL_GetTicks() - ticks >= 25 && !gameover) {
       UpdateGame(renderer, player);
       SDL_RenderCopy(renderer, bgtexture, NULL, NULL);
       DrawSprites(renderer);

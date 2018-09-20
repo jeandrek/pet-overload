@@ -4,22 +4,22 @@ void DrawText(SDL_Renderer *renderer, const char *text, Uint16 x, Uint16 y);
 
 void DrawHUD(SDL_Renderer *renderer, Player *player)
 {
-  SDL_Rect hudbox = {0, WINDOW_HEIGHT-45, WINDOW_WIDTH, 45};
+  SDL_Rect hudbox = {0, WINDOW_HEIGHT - 45, WINDOW_WIDTH, 45};
   char hud1[12], hud2[16];
 
   SDL_SetRenderDrawColor(renderer, 0xc0, 0xe0, 0xf0, 0xff);
   SDL_RenderFillRect(renderer, &hudbox);
 
   if (gameover) {
-    DrawText(renderer, "Game over!", WINDOW_WIDTH/3, hudbox.y+5);
+    DrawText(renderer, "Game over!", WINDOW_WIDTH/3, hudbox.y + 5);
     return;
   }
 
   snprintf(hud1, 12, "Energy %hu", player->energy);
   snprintf(hud2, 16, "Money $%hu", player->money);
 
-  DrawText(renderer, hud1, 5, hudbox.y+5);
-  DrawText(renderer, hud2, WINDOW_WIDTH/2+5, hudbox.y+5);
+  DrawText(renderer, hud1, 5, hudbox.y + 5);
+  DrawText(renderer, hud2, WINDOW_WIDTH/2 + 5, hudbox.y + 5);
 }
 
 void DrawText(SDL_Renderer *renderer, const char *text, Uint16 x, Uint16 y)

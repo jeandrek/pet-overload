@@ -2,12 +2,6 @@
 
 static Map *currentmap;
 
-void RandomPos(Sprite *sp)
-{
-  sp->rect.x = rand() % WINDOW_WIDTH;
-  sp->rect.y = rand() % WINDOW_HEIGHT;
-}
-
 Player *InitGame(SDL_Renderer *renderer)
 {
   Player *player = (Player *)MakeSprite("player", renderer);
@@ -26,7 +20,7 @@ Player *InitGame(SDL_Renderer *renderer)
 
 Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
 {
-  SDL_Rect delta = {0,0,0,0};
+  SDL_Rect delta = {0};
   Sprite *b;
 
   if (right)     delta.x = +SPEED;
@@ -40,8 +34,8 @@ Sprite *Move(Sprite *a, Uint8 left, Uint8 right, Uint8 up, Uint8 down)
       // Allow pets but not players to go off-screen
       || (!(a->data & MASK_PET)
 	  && (a->rect.x < 0 || a->rect.y < 0
-	      || (a->rect.x+a->rect.w) > WINDOW_WIDTH
-	      || (a->rect.y+a->rect.h) > WINDOW_HEIGHT))) {
+	      || a->rect.x + a->rect.w > WINDOW_WIDTH
+	      || a->rect.y + a->rect.h > WINDOW_HEIGHT))) {
     a->rect.x -= delta.x;
     a->rect.y -= delta.y;
   }
@@ -79,7 +73,7 @@ int SellPet(Sprite *pet, Player *player)
   if (pet->data & MASK_PET) {
     pet->data ^= MASK_PET;
     pet->data |= MASK_SOLD;
-    player->money += 90+(rand()%20);
+    player->money += 90 + rand()%20;
     player->energy += 10;
     return 1;
   }
@@ -97,8 +91,8 @@ void ClearMap(Sprite *sp, Player *player)
     DestroySprite(sp);
   else if (sp->data & MASK_PET) {
     // Keep pets same distance relative to player
-    sp->rect.x = 5 + (sp->rect.x - player->rect.x);
-    sp->rect.y = 5 + (sp->rect.y - player->rect.y);
+    sp->rect.x -= player->rect.x - 5;
+    sp->rect.y -= player->rect.y - 5;
   }
 }
 
